@@ -1,23 +1,22 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Navbar from "./container/Navbar";
 import HackthonDetails from "./HackthonDetails/HackthonDetails";
 import HomePage from "./pages/Home/Home";
+import Main from "./pages";
+import CreateHackthon from "./CreateHackthon/CreateHackthon";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <HomePage />,
+      element: <Main />,
+      children: [
+        { path: "/", element: <HomePage /> },
+        { path: "/create-hackthon", element: <CreateHackthon /> },
+        { path: "/hackthon-details/:id", element: <HackthonDetails /> },
+      ],
     },
-    { path: "/create-hackthon", element: <div>create page</div> },
-    { path: "/hackthon-details/:id", element: <HackthonDetails /> },
   ]);
-  return (
-    <>
-      <Navbar />
-      <RouterProvider router={router} />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

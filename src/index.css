@@ -31,3 +31,13 @@ code {
   font-weight: 300;
   font-style: normal;
 }
+
+/* #startDate:in-range::-webkit-datetime-edit-year-field,
+#startDate:in-range::-webkit-datetime-edit-month-field,
+#startDate:in-range::-webkit-datetime-edit-day-field,
+#startDate:in-range::-webkit-datetime-edit-text {
+  display: none;
+}
+#startDate::after {
+  content: attr(placeholder) !important;
+} */

@@ -1,3 +1,10 @@
+import img1 from "../assets/cardimage/Group_1000002466.png";
+import img2 from "../assets/cardimage/Group 1000002766.png";
+import img3 from "../assets/cardimage/Group 1000002767.png";
+import img4 from "../assets/cardimage/Group 1000002771.png";
+import img5 from "../assets/cardimage/Group 1000002773.png";
+import img6 from "../assets/cardimage/Group 1000002772.png";
+
 export interface dataProps {
   id: string;
   title: string;
@@ -17,7 +24,7 @@ export const defaultData: Array<dataProps> = [
     description:
       'Butterflies are the adult flying stage of certain insects belonging to an order or group called Lepidoptera. The word "Lepidoptera" means "scaly wings" in Greek. This name perfectly suits the insects in this group because their wings are covered with thousands of tiny scales overlapping in rows.',
     level: "easy",
-    imageUrl: "../assets/cardimage/Group_1000002466.png",
+    imageUrl: img1,
   },
   {
     id: "2",
@@ -27,7 +34,7 @@ export const defaultData: Array<dataProps> = [
     description:
       'Butterflies are the adult flying stage of certain insects belonging to an order or group called Lepidoptera. The word "Lepidoptera" means "scaly wings" in Greek. This name perfectly suits the insects in this group because their wings are covered with thousands of tiny scales overlapping in rows.',
     level: "easy",
-    imageUrl: "../assets/cardimage/Group_1000002466.png",
+    imageUrl: img2,
   },
   {
     id: "3",
@@ -37,7 +44,7 @@ export const defaultData: Array<dataProps> = [
     description:
       'Butterflies are the adult flying stage of certain insects belonging to an order or group called Lepidoptera. The word "Lepidoptera" means "scaly wings" in Greek. This name perfectly suits the insects in this group because their wings are covered with thousands of tiny scales overlapping in rows.',
     level: "medium",
-    imageUrl: "../assets/cardimage/Group_1000002466.png",
+    imageUrl: img3,
   },
   {
     id: "4",
@@ -47,7 +54,7 @@ export const defaultData: Array<dataProps> = [
     description:
       'Butterflies are the adult flying stage of certain insects belonging to an order or group called Lepidoptera. The word "Lepidoptera" means "scaly wings" in Greek. This name perfectly suits the insects in this group because their wings are covered with thousands of tiny scales overlapping in rows.',
     level: "hard",
-    imageUrl: "../assets/cardimage/Group_1000002466.png",
+    imageUrl: img4,
   },
   {
     id: "5",
@@ -57,7 +64,7 @@ export const defaultData: Array<dataProps> = [
     description:
       'Butterflies are the adult flying stage of certain insects belonging to an order or group called Lepidoptera. The word "Lepidoptera" means "scaly wings" in Greek. This name perfectly suits the insects in this group because their wings are covered with thousands of tiny scales overlapping in rows.',
     level: "medium",
-    imageUrl: "../assets/cardimage/Group_1000002466.png",
+    imageUrl: img5,
   },
   {
     id: "6",
@@ -67,6 +74,6 @@ export const defaultData: Array<dataProps> = [
     description:
       'Butterflies are the adult flying stage of certain insects belonging to an order or group called Lepidoptera. The word "Lepidoptera" means "scaly wings" in Greek. This name perfectly suits the insects in this group because their wings are covered with thousands of tiny scales overlapping in rows.',
     level: "easy",
-    imageUrl: "../assets/cardimage/Group_1000002466.png",
+    imageUrl: img6,
   },
 ];

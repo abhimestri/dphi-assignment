@@ -1,10 +1,25 @@
 import { Button } from "react-bootstrap";
 import HeaderSection from "./HeaderSection";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { dataProps, defaultData } from "../Data";
 
 const HackthonDetails = () => {
+  const [hackthonDetails, setHackthonDetails] = useState<dataProps>();
+
+  const params = useParams();
+
+  useEffect(() => {
+    const data = defaultData?.filter(
+      (data: dataProps) => data?.id === params?.id && data
+    )[0];
+    console.log({ data });
+    setHackthonDetails(data);
+  }, [params]);
+
   return (
     <div>
-      <HeaderSection />
+      <HeaderSection hackthonDetails={hackthonDetails} />
       <div className="!shadow-lg !shadow-[#DDE6ED] w-full">
         <div className="px-32 py-[16px] pb-0 flex justify-between items-end">
           <div className="border-b-[4px] border-b-green w-[10%]">
@@ -24,25 +39,7 @@ const HackthonDetails = () => {
         </div>
       </div>
       <div className="text-semidarkgrey text-[18px] font-medium px-32 my-12">
-        <p>
-          Butterflies are the adult flying stage of certain insects belonging to
-          an order or group called Lepidoptera. The word "Lepidoptera" means
-          "scaly wings" in Greek. This name perfectly suits the insects in this
-          group because their wings are covered with thousands of tiny scales
-          overlapping in rows.
-        </p>
-        <br />
-        <p>
-          An agency of the Governmental Wildlife Conservation is planning to
-          implement an automated system based on computer vision so that it can
-          identify butterflies based on captured images. As a consultant for
-          this project, you are responsible for developing an efficient model.
-        </p>{" "}
-        <br />
-        <p>
-          Your Task is to build an Image Classification Model using CNN that
-          classifies to which class of weather each image belongs to.
-        </p>
+        <p>{hackthonDetails?.description}</p>
       </div>
     </div>
   );

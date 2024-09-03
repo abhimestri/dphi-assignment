@@ -1,8 +1,13 @@
 import { Button } from "react-bootstrap";
 import { ReactComponent as ClockIcon } from "../assets/icons/clock_icon.svg";
 import { ReactComponent as SkillLevel } from "../assets/icons/carbon_skill-level-basic.svg";
+import { dataProps } from "../Data";
 
-const HeaderSection = () => {
+interface HeaderSectionProps {
+  hackthonDetails: dataProps | any;
+}
+
+const HeaderSection = ({ hackthonDetails }: HeaderSectionProps) => {
   return (
     <div className="bg-primarylight px-32 py-24 text-white">
       <div>
@@ -13,16 +18,16 @@ const HeaderSection = () => {
           </p>
         </div>
         <p className="font-semibold text-[40px] mt-4">
-          Data Science Bootcamp - Graded Datathon
+          {hackthonDetails?.title}
         </p>
-        <p className="mt-6 text-[16px] font-medium">
-          Identify class to which each butterfly belings to
+        <p className="mt-6 text-[16px] font-medium line-clamp-1">
+          {hackthonDetails?.description}
         </p>
-        <div className="bg-white !flex gap-x-2 items-center py-8px] px-[20px] mt-4 mb-4 border-0 rounded-[5px]">
+        <div className="bg-white w-fit text-black capitalize !flex gap-x-2 items-center py-[8px] px-[20px] mt-4 mb-4 border-0 rounded-[5px]">
           <span>
             <SkillLevel />
           </span>
-          <p className="text-[14px] font-medium">Easy</p>
+          <p className="text-[14px] font-medium">{hackthonDetails?.level}</p>
         </div>
       </div>
     </div>

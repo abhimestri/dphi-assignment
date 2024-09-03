@@ -4,7 +4,6 @@ import { ReactComponent as AIIcon } from "../../assets/icons/Group 1000002515.sv
 import { ReactComponent as Scientists } from "../../assets/icons/Group 1000002516.svg";
 import { ReactComponent as Healing } from "../../assets/icons/Group 1000002518.svg";
 import { useNavigate } from "react-router-dom";
-export interface HeaderSectionProps {}
 
 const HeaderSection = () => {
   const navigate = useNavigate();

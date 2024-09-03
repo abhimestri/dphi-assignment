@@ -4,6 +4,7 @@ import Counter from "../Counter/Counter";
 import { Button } from "react-bootstrap";
 import { ReactComponent as CheckIcon } from "../../assets/icons/check_icon.svg";
 import { useNavigate } from "react-router-dom";
+import img from "../../assets/cardimage/Group_1000002466.png";
 
 export interface HackthonCardProps {
   id: string;
