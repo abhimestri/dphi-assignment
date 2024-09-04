@@ -21,8 +21,8 @@ const HackthonDetails = () => {
     <div>
       <HeaderSection hackthonDetails={hackthonDetails} />
       <div className="!shadow-lg !shadow-[#DDE6ED] w-full">
-        <div className="px-32 py-[16px] pb-0 flex justify-between items-end">
-          <div className="border-b-[4px] border-b-green w-[10%]">
+        <div className="py-[16px] pb-0 flex justify-between items-end px-10 md:px-32 ">
+          <div className="border-b-[4px] border-b-green w-[140px]">
             <p className="font-bold pb-2 text-center">Overview</p>
           </div>
           <div className="flex gap-x-4 items-center mb-[20px]">
@@ -38,7 +38,7 @@ const HackthonDetails = () => {
           </div>
         </div>
       </div>
-      <div className="text-semidarkgrey text-[18px] font-medium px-32 my-12">
+      <div className="text-semidarkgrey text-[18px] font-medium my-12 px-10 md:px-32">
         <p>{hackthonDetails?.description}</p>
       </div>
     </div>

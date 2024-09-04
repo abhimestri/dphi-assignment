@@ -7,7 +7,7 @@ const ChallengeSection = () => {
   return (
     <>
       <SearchSection />
-      <div className="bg-primarylight grid grid-cols-12 gap-x-16 gap-y-14 px-32 py-20">
+      <div className="bg-primarylight grid grid-cols-12 px-20 py-20 gap-x-12 md:px-26 lg:px-32 gap-x-16 gap-y-14">
         {defaultData?.map((data: dataProps) => {
           return (
             <HackthonCard

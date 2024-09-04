@@ -1,4 +1,3 @@
-import { Button } from "react-bootstrap";
 import { ReactComponent as ClockIcon } from "../assets/icons/clock_icon.svg";
 import { ReactComponent as SkillLevel } from "../assets/icons/carbon_skill-level-basic.svg";
 import { dataProps } from "../Data";
@@ -9,7 +8,7 @@ interface HeaderSectionProps {
 
 const HeaderSection = ({ hackthonDetails }: HeaderSectionProps) => {
   return (
-    <div className="bg-primarylight px-32 py-24 text-white">
+    <div className="bg-primarylight py-24 text-white px-10 md:px-32">
       <div>
         <div className="bg-yellow flex items-center gap-x-2 py-[7px] !px-6 w-fit rounded-[5px] !pr-14">
           <ClockIcon />

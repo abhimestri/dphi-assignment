@@ -4,7 +4,7 @@ import InfoCard, { InfoCardProps } from "./InfoCard/InfoCard";
 
 const ParticipateInfoSection = () => {
   return (
-    <div className="px-40 py-16 mt-4">
+    <div className="mt-4 px-10 py-16 md:px-40">
       <p className="text-[32px] font-semibold text-center">
         Why Participate in <span className="text-green">AI Challenges?</span>
       </p>

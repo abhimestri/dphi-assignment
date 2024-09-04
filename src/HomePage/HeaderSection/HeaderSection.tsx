@@ -9,38 +9,40 @@ const HeaderSection = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <div className="h-[78vh] w-full px-36 py-24 bg-primarylight">
-        <div className="flex gap-x-2">
-          <div className="min-w-[10px] h-[16vh] bg-yellow" />
-          <div className="pl-12">
-            <div className="w-[44vw]">
-              <p className="text-[48px] font-semibold text-white p-0 leading-[3.5rem]">
-                Accelerate Innovation with Global AI Challenges
-              </p>
+      <div className="h-[80%] w-full px-16 py-20 bg-primarylight md:px-36 py-24">
+        <div className="md:flex gap-x-2">
+          <div className="flex gap-x-6 md:gap-x-12">
+            <div className="min-w-[10px] h-[16vh] bg-yellow" />
+            <div>
+              <div className="w-full md:w-[44vw]">
+                <p className="text-[48px] font-semibold text-white p-0 leading-[3.5rem]">
+                  Accelerate Innovation with Global AI Challenges
+                </p>
+              </div>
+              <div className="mt-10 w-full md:w-[40vw]">
+                <p className="text-white text-[18px] leading-[28px] font-medium">
+                  AI Challenges at DPhi simulate real-world problems. It is a
+                  great place to put your AI/Data Science skills to test on
+                  diverse datasets allowing you to foster learning through
+                  competitions.
+                </p>
+              </div>
+              <Button
+                variant="light"
+                className="mt-10 rounded-[10px] text-[18px] text-primarylight !font-bold font-poppinslight px-4 py-2"
+                onClick={() => navigate("/create-hackthon")}
+              >
+                Create Challenge
+              </Button>
             </div>
-            <div className="mt-10 w-[40vw]">
-              <p className="text-white text-[18px] leading-[28px] font-medium">
-                AI Challenges at DPhi simulate real-world problems. It is a
-                great place to put your AI/Data Science skills to test on
-                diverse datasets allowing you to foster learning through
-                competitions.
-              </p>
-            </div>
-            <Button
-              variant="light"
-              className="mt-10 rounded-[10px] text-[18px] text-primarylight !font-bold font-poppinslight px-4 py-2"
-              onClick={() => navigate("/create-hackthon")}
-            >
-              Create Challenge
-            </Button>
           </div>
-          <div className="pl-16 !mt-[-14px]">
+          <div className="hidden lg:block pl-16 !mt-[-14px]">
             <RocketIcon />
           </div>
         </div>
       </div>
-      <div className="bg-primarydark h-[24vh] px-20 py-5 pt-6 flex gap-x-20 justify-center">
-        <div className="flex gap-x-4">
+      <div className="bg-primarydark h-[20%] px-52 py-5 pt-6 m-auto flex justify-center items-start flex-col md:flex-row gap-x-20 px-20">
+        <div className="flex mb-10 gap-x-4">
           <div className="">
             <AIIcon />
           </div>
@@ -49,8 +51,8 @@ const HeaderSection = () => {
             <p className="m-0 text-[16px] font-medium">AI modal submissions</p>
           </div>
         </div>
-        <div className="w-[1px] h-[60%] bg-white mt-2" />
-        <div className="flex gap-x-4">
+        <div className="hidden md:block min-w-[1px] h-[8vh] bg-white" />
+        <div className="flex mb-10 gap-x-4">
           <div>
             <Scientists />
           </div>
@@ -59,7 +61,7 @@ const HeaderSection = () => {
             <p className="m-0 text-[16px] font-medium">Data Scientists</p>
           </div>
         </div>
-        <div className="w-[1px] h-[60%] bg-white mt-2" />
+        <div className="hidden md:block min-w-[1px] h-[8vh] bg-white" />
         <div className="flex gap-x-4">
           <div>
             <Healing />

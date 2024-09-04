@@ -23,7 +23,7 @@ const HackthonCard = ({
 }: HackthonCardProps) => {
   const navigate = useNavigate();
 
-  const getStatus = () => {
+  const getStatus: any = () => {
     switch (status) {
       case "active":
         return "success";
@@ -36,13 +36,13 @@ const HackthonCard = ({
   };
   return (
     <div
-      className="!rounded-[15px] col-span-4 overflow-hidden cursor-pointer"
+      className="min-h-[68vh] !rounded-[15px] overflow-hidden cursor-pointer col-span-12 w-fit md:w-full md:col-span-6 lg:col-span-4"
       onClick={() => navigate(`/hackthon-details/${id}`)}
     >
-      <img src={imageUrl} alt="" className="h-[26vh] bg-[#ccc]" />
+      <img src={imageUrl} alt="" className="h-[26vh] bg-[#ccc] w-full" />
       <div className="bg-white flex justify-center items-center flex-col px-4 pt-4">
         <Chip message="Upcoming" status={getStatus()} />
-        <p className="text-center w-[80%] font-bold text-[16px] mt-3">
+        <p className="text-center w-[80%] min-h-[8vh] font-bold text-[16px] mt-3 line-clamp-3">
           {title}
         </p>
         <Counter />
