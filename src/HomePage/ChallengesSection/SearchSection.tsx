@@ -158,7 +158,7 @@ const SearchSection = ({
                     <Form.Check
                       type="checkbox"
                       label="Newest challenge first"
-                      className="py-1 mb-4"
+                      className="py-1 mb-2"
                       name="newest"
                       onChange={handelAddFilter}
                       checked={appliedFilters.indexOf("newest") >= 0}
