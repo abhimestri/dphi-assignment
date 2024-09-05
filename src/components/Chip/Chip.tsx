@@ -1,6 +1,6 @@
 export interface ChipProps {
-  status: "success" | "danger" | "default";
-  message: string;
+  status: string | any;
+  message: string | any;
 }
 
 const Chip = ({ status, message }: ChipProps) => {
@@ -19,7 +19,7 @@ const Chip = ({ status, message }: ChipProps) => {
   return (
     <div className={`px-[10px] rounded-[5px] py-[4px] ${getBackgroundColor()}`}>
       <p
-        className={`text-[12px] text-[#666666] font-semibold ${
+        className={`text-[12px] text-[#666666] font-semibold capitalize ${
           status === "success" && "!text-green"
         }`}
       >

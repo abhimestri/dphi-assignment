@@ -12,6 +12,7 @@ function App() {
       children: [
         { path: "/", element: <HomePage /> },
         { path: "/create-hackthon", element: <CreateHackthon /> },
+        { path: "/edit-hackthon/:id", element: <CreateHackthon /> },
         { path: "/hackthon-details/:id", element: <HackthonDetails /> },
       ],
     },

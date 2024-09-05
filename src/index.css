@@ -41,3 +41,15 @@ code {
 #startDate::after {
   content: attr(placeholder) !important;
 } */
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.dropend .dropdown-toggle::after {
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  display: inline-block;
+  border-bottom: 0.3em solid transparent;
+}

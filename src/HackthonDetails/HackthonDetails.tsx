@@ -1,21 +1,49 @@
 import { Button } from "react-bootstrap";
 import HeaderSection from "./HeaderSection";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { dataProps, defaultData } from "../Data";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../config/firebase";
+import { DefaultDataContext } from "../context";
 
 const HackthonDetails = () => {
-  const [hackthonDetails, setHackthonDetails] = useState<dataProps>();
+  const [hackthonDetails, setHackthonDetails] = useState<any>();
 
+  const { hackthonList, setHackthonList }: any = useContext(DefaultDataContext);
   const params = useParams();
+  const navigate = useNavigate();
+
+  const handleDelete = () => {
+    const updatedHackthonList = hackthonList?.filter(
+      (data: any) => data?.id !== params?.id
+    );
+    setHackthonList([...updatedHackthonList]);
+    navigate("/");
+  };
 
   useEffect(() => {
-    const data = defaultData?.filter(
-      (data: dataProps) => data?.id === params?.id && data
-    )[0];
-    console.log({ data });
-    setHackthonDetails(data);
-  }, [params]);
+    // if (params?.id?.length === 1) {
+    //   const data = defaultData?.filter(
+    //     (data: dataProps) => data?.id === params?.id && data
+    //   )[0];
+    //   console.log({ data });
+    //   setHackthonDetails(data);
+    // } else {
+    //   const docRef = doc(db, "data", `${params?.id}`);
+    //   getDoc(docRef)?.then((snapshot) => {
+    //     setHackthonDetails({ ...snapshot?.data() });
+    //   });
+    // }
+    if (!hackthonDetails && params?.id) {
+      console.log({ hackthonList });
+      const currentHackthonDetail = hackthonList?.filter(
+        (data: any) => data?.id === params?.id
+      )[0];
+      console.log({ currentHackthonDetail });
+      setHackthonDetails(currentHackthonDetail);
+    }
+  }, [params, hackthonList, hackthonDetails]);
 
   return (
     <div>
@@ -26,10 +54,14 @@ const HackthonDetails = () => {
             <p className="font-bold pb-2 text-center">Overview</p>
           </div>
           <div className="flex gap-x-4 items-center mb-[20px]">
-            <Button className="py-[7px] px-8 bg-darkgreen border-0 rounded-[10px] text-[14px] font-semibold hover:bg-darkgreen">
+            <Button
+              onClick={() => navigate(`/edit-hackthon/${params?.id}`)}
+              className="py-[7px] px-8 bg-darkgreen border-0 rounded-[10px] text-[14px] font-semibold hover:bg-darkgreen"
+            >
               Edit
             </Button>
             <Button
+              onClick={handleDelete}
               variant="outline-danger"
               className="py-[6px] px-6 rounded-[10px] text-[14px] font-semibold"
             >

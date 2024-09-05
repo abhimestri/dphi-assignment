@@ -1,35 +1,80 @@
-import { Button, InputGroup } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { collection, addDoc, getDoc, doc } from "firebase/firestore";
+import { db } from "../config/firebase";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { defaultData } from "../Data";
+import { DefaultDataContext } from "../context";
+import { ReactComponent as ImageIcon } from "../assets/icons/bi_image-fill.svg";
+import { ReactComponent as RightIcon } from "../assets/icons/arrow-right.svg";
+import { ReactComponent as UploadIcon } from "../assets/icons/bxs_cloud-upload.svg";
+
+import moment from "moment";
 
 const CreateHackthon = () => {
-  const [validated, setValidated] = useState(false);
+  const navigate = useNavigate();
+  const isEditPage = useLocation()?.pathname?.split("/")[1] === "edit-hackthon";
+  const params = useParams();
+  const { hackthonList, setHackthonList }: any = useContext(DefaultDataContext);
 
-  const [formData, setFormData] = useState({
-    id: "",
-    title: "",
-    expiryDate: "",
-    startDate: "",
-    description: "",
-    level: "",
-    image: "",
-  });
+  const [validated, setValidated] = useState(false);
+  const [formData, setFormData] = useState<any>({});
 
   const handleChange = (data: any) => {
     const { name, value } = data?.target;
-    setFormData({ ...formData, [name]: value });
+    console.log({ data });
+    if (name === "imageUrl") {
+      const file = data.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setFormData({ ...formData, imageUrl: reader?.result });
+      };
+    } else if (name === "level") {
+      setFormData({ ...formData, [name]: value });
+    } else {
+      setFormData({ ...formData, [name]: value, level: "easy" });
+    }
   };
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+      setValidated(true);
+    } else {
+      if (isEditPage) {
+        const updatedHackthonList = hackthonList?.map((data: any) => {
+          if (data?.id === params?.id) {
+            return { ...formData };
+          } else {
+            return data;
+          }
+        });
+        setHackthonList([...updatedHackthonList]);
+      } else {
+        setHackthonList([
+          ...hackthonList,
+          { ...formData, id: `${hackthonList?.length + 1}` },
+        ]);
+      }
+      navigate("/");
     }
-
-    setValidated(true);
-    console.log({ formData });
   };
+
+  useEffect(() => {
+    if (params?.id) {
+      const editData = hackthonList?.filter(
+        (data: any) => data?.id === params?.id
+      )[0];
+      console.log({ editData });
+      setFormData({ ...editData });
+    }
+  }, [params?.id, hackthonList]);
+
+  console.log({ formData });
 
   return (
     <div>
@@ -71,7 +116,11 @@ const CreateHackthon = () => {
                 width: "28%",
               }}
               onChange={handleChange}
-              value={formData?.startDate}
+              value={
+                formData?.startDate
+                  ? moment(formData?.startDate).format("YYYY-MM-DD")
+                  : ""
+              }
               required
             />
             <Form.Control.Feedback type="invalid">
@@ -89,7 +138,11 @@ const CreateHackthon = () => {
               }}
               required
               onChange={handleChange}
-              value={formData?.expiryDate}
+              value={
+                formData?.expiryDate
+                  ? moment(formData?.expiryDate).format("YYYY-MM-DD")
+                  : ""
+              }
             />
             <Form.Control.Feedback type="invalid">
               Please choose a Expiry date.
@@ -105,7 +158,6 @@ const CreateHackthon = () => {
                 width: "48%",
               }}
               rows={10}
-              id="startDate"
               onChange={handleChange}
               value={formData?.description}
               required
@@ -116,18 +168,38 @@ const CreateHackthon = () => {
           </div>
           <div className="mb-4">
             <p className="mb-4">Image</p>
-            <div className="mb-4 bg-[#F4F4F4] rounded-[5px] w-fit border-[1px] px-2 py-[3px] border-[#D9D9D9]">
-              <label
-                className="px-20 py-[14px] cursor-pointer"
-                htmlFor="file-upload"
-              >
-                Upload
-              </label>
+            <div className="mb-4 bg-[#F8F9FD] rounded-[5px] w-fit px-2 py-[3px]">
+              {isEditPage ? (
+                <div className="px-3 py-4">
+                  <img
+                    src={formData?.imageUrl}
+                    alt=""
+                    className="w-full h-[124px] mb-4 rounded-[15px]"
+                  />
+                  <label htmlFor="file-upload" className="cursor-pointer">
+                    <div className="flex items-center gap-x-3">
+                      <ImageIcon />
+                      <p>Change image</p>
+                      <RightIcon />
+                    </div>
+                  </label>
+                </div>
+              ) : (
+                <label
+                  className="px-20 py-[14px] cursor-pointer"
+                  htmlFor="file-upload"
+                >
+                  <div className="flex justify-center items-center gap-x-2">
+                    <p>Upload</p>
+                    <UploadIcon />
+                  </div>
+                </label>
+              )}
               <Form.Control
                 id="file-upload"
                 type="file"
                 hidden
-                name="image"
+                name="imageUrl"
                 onChange={handleChange}
                 required
               />
@@ -148,7 +220,9 @@ const CreateHackthon = () => {
               onChange={handleChange}
               value={formData?.level}
             >
-              <option value="easy">Easy</option>
+              <option selected value="easy">
+                Easy
+              </option>
               <option value="medium">Medium</option>
               <option value="hard">Hard</option>
             </Form.Select>
@@ -157,7 +231,7 @@ const CreateHackthon = () => {
             className="py-[12px] font-medium px-8 mt-4 mb-6 bg-darkgreen border-0 rounded-[10px] hover:bg-darkgreen"
             type="submit"
           >
-            Create Challenge
+            {params?.id ? "Save changes" : "Create Challenge"}
           </Button>
         </Form>
       </div>
