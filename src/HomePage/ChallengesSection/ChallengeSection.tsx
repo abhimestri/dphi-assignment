@@ -1,8 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import SearchSection from "./SearchSection";
 import HackthonCard from "../../components/HackthonCard/HackthonCard";
-// import { collection, getDocs } from "firebase/firestore";
-// import { db } from "../../config/firebase";
 import { DefaultDataContext } from "../../context";
 import { getFilteredList } from "../../utility";
 import moment from "moment";
@@ -22,20 +20,7 @@ const ChallengeSection = ({
   setAppliedFilters,
 }: ChallengeSectionProps) => {
   const { hackthonList }: any = useContext(DefaultDataContext);
-  //   const [challengeList, setChallengeList] = useState<Array<any>>([]);
   const [searchHackthon, setSearchHackthon] = useState<string>("");
-
-  //   useEffect(() => {
-  //     if (!challengeList?.length) {
-  //       getDocs(collection(db, "data"))?.then((dataSnap) => {
-  //         let updatedList: any = [];
-  //         dataSnap?.forEach((doc) => {
-  //           updatedList = [...updatedList, { ...doc?.data(), id: doc?.id }];
-  //         });
-  //         setChallengeList([...challengeList, ...updatedList]);
-  //       });
-  //     }
-  //   }, [challengeList]);
 
   return (
     <>

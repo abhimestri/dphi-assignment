@@ -4,10 +4,9 @@ import InputGroup from "react-bootstrap/InputGroup";
 import { ReactComponent as SearchIcon } from "../../assets/icons/carbon_search.svg";
 import { ReactComponent as ArrowDown } from "../../assets/icons/arrow-down.svg";
 import { ReactComponent as ArrowUp } from "../../assets/icons/arrow-up.svg";
-
 import { ChallengeSectionProps } from "./ChallengeSection";
 import FilterChip from "../../components/FilterChip/FilterChip";
-import { useState } from "react";
+import { filterList } from "../../utility";
 
 const SearchSection = ({
   isFilterDropdownOpen,
@@ -129,66 +128,30 @@ const SearchSection = ({
                   <div className="px-2">
                     <p className="py-2">Status</p>
                     <div>
-                      <Form.Check
-                        type="checkbox"
-                        label="All"
-                        className="cursor-pointer w-full h-full"
-                        name="all"
-                        onChange={handelAddFilter}
-                        checked={appliedFilters.indexOf("all") >= 0}
-                      />
-                      <Form.Check
-                        type="checkbox"
-                        label="Active"
-                        className="py-1"
-                        name="active"
-                        onChange={handelAddFilter}
-                        checked={appliedFilters.indexOf("active") >= 0}
-                      />
-                      <Form.Check
-                        type="checkbox"
-                        label="Upcoming"
-                        className="py-1"
-                        name="upcoming"
-                        onChange={handelAddFilter}
-                        checked={appliedFilters.indexOf("upcoming") >= 0}
-                      />
-                      <Form.Check
-                        type="checkbox"
-                        label="Past"
-                        className="py-1"
-                        name="past"
-                        onChange={handelAddFilter}
-                        checked={appliedFilters.indexOf("past") >= 0}
-                      />
+                      {filterList?.slice(0, 4)?.map((item: any) => {
+                        return (
+                          <Form.Check
+                            {...item}
+                            className="cursor-pointer w-full h-full"
+                            onChange={handelAddFilter}
+                            checked={appliedFilters.indexOf(item.name) >= 0}
+                          />
+                        );
+                      })}
                     </div>
                     <div className="w-full h-[1px] bg-[#DDE6ED] my-2" />
                     <p className="py-2">Level</p>
                     <div>
-                      <Form.Check
-                        type="checkbox"
-                        label="Easy"
-                        className="py-1"
-                        name="easy"
-                        onChange={handelAddFilter}
-                        checked={appliedFilters.indexOf("easy") >= 0}
-                      />
-                      <Form.Check
-                        type="checkbox"
-                        label="Medium"
-                        className="py-1"
-                        name="medium"
-                        onChange={handelAddFilter}
-                        checked={appliedFilters.indexOf("medium") >= 0}
-                      />
-                      <Form.Check
-                        type="checkbox"
-                        label="Hard"
-                        className="py-1 mb-4"
-                        name="hard"
-                        onChange={handelAddFilter}
-                        checked={appliedFilters.indexOf("hard") >= 0}
-                      />
+                      {filterList?.slice(4, 7)?.map((item: any) => {
+                        return (
+                          <Form.Check
+                            {...item}
+                            className="cursor-pointer w-full h-full"
+                            onChange={handelAddFilter}
+                            checked={appliedFilters.indexOf(item.name) >= 0}
+                          />
+                        );
+                      })}
                     </div>
                     <div className="w-full h-[1px] bg-[#DDE6ED] my-2" />
                     <p className="py-2">sort</p>

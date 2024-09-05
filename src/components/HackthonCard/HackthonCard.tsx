@@ -20,6 +20,34 @@ interface ChipStatusProp {
   title: string;
 }
 
+export const getStatus = (
+  startDate: any,
+  expiryDate: any,
+  title?: ChipStatusProp["title"]
+) => {
+  if (moment()?.isBetween(startDate, expiryDate)) {
+    return {
+      title: "active",
+      color: "success",
+    };
+  } else if (moment(startDate) > moment()) {
+    return {
+      title: "upcoming",
+      color: "default",
+    };
+  } else if (moment(expiryDate) < moment()) {
+    return {
+      title: "past",
+      color: "danger",
+    };
+  } else {
+    return {
+      title: title,
+      color: "default",
+    };
+  }
+};
+
 const HackthonCard = ({
   imageUrl,
   status,
@@ -30,29 +58,29 @@ const HackthonCard = ({
 }: HackthonCardProps) => {
   const navigate = useNavigate();
 
-  const getStatus = (title?: ChipStatusProp["title"]) => {
-    if (moment()?.isBetween(startDate, expiryDate)) {
-      return {
-        title: "active",
-        color: "success",
-      };
-    } else if (moment(startDate) > moment()) {
-      return {
-        title: "upcoming",
-        color: "default",
-      };
-    } else if (moment(expiryDate) < moment()) {
-      return {
-        title: "past",
-        color: "danger",
-      };
-    } else {
-      return {
-        title: title,
-        color: "default",
-      };
-    }
-  };
+  //   const getStatus = (title?: ChipStatusProp["title"]) => {
+  //     if (moment()?.isBetween(startDate, expiryDate)) {
+  //       return {
+  //         title: "active",
+  //         color: "success",
+  //       };
+  //     } else if (moment(startDate) > moment()) {
+  //       return {
+  //         title: "upcoming",
+  //         color: "default",
+  //       };
+  //     } else if (moment(expiryDate) < moment()) {
+  //       return {
+  //         title: "past",
+  //         color: "danger",
+  //       };
+  //     } else {
+  //       return {
+  //         title: title,
+  //         color: "default",
+  //       };
+  //     }
+  //   };
   return (
     <div
       className="min-h-[68vh] !rounded-[15px] overflow-hidden cursor-pointer col-span-12 w-fit md:w-full md:col-span-6 lg:col-span-4"
@@ -60,7 +88,10 @@ const HackthonCard = ({
     >
       <img src={imageUrl} alt="" className="h-[26vh] bg-[#ccc] w-full" />
       <div className="bg-white flex justify-center items-center flex-col px-4 pt-4">
-        <Chip message={getStatus()?.title} status={getStatus()?.color} />
+        <Chip
+          message={getStatus(startDate, expiryDate)?.title}
+          status={getStatus(startDate, expiryDate)?.color}
+        />
         <p className="text-center w-[80%] min-h-[8vh] font-bold text-[16px] mt-3 line-clamp-3">
           {title}
         </p>

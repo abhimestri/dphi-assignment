@@ -2,9 +2,6 @@ import { Button } from "react-bootstrap";
 import HeaderSection from "./HeaderSection";
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { dataProps, defaultData } from "../Data";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../config/firebase";
 import { DefaultDataContext } from "../context";
 
 const HackthonDetails = () => {
@@ -23,24 +20,10 @@ const HackthonDetails = () => {
   };
 
   useEffect(() => {
-    // if (params?.id?.length === 1) {
-    //   const data = defaultData?.filter(
-    //     (data: dataProps) => data?.id === params?.id && data
-    //   )[0];
-    //   console.log({ data });
-    //   setHackthonDetails(data);
-    // } else {
-    //   const docRef = doc(db, "data", `${params?.id}`);
-    //   getDoc(docRef)?.then((snapshot) => {
-    //     setHackthonDetails({ ...snapshot?.data() });
-    //   });
-    // }
     if (!hackthonDetails && params?.id) {
-      console.log({ hackthonList });
       const currentHackthonDetail = hackthonList?.filter(
         (data: any) => data?.id === params?.id
       )[0];
-      console.log({ currentHackthonDetail });
       setHackthonDetails(currentHackthonDetail);
     }
   }, [params, hackthonList, hackthonDetails]);

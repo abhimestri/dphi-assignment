@@ -1,10 +1,9 @@
 import { ReactComponent as ClockIcon } from "../assets/icons/clock_icon.svg";
 import { ReactComponent as SkillLevel } from "../assets/icons/carbon_skill-level-basic.svg";
-import { dataProps } from "../Data";
 import moment from "moment";
 
 interface HeaderSectionProps {
-  hackthonDetails: dataProps | any;
+  hackthonDetails: any;
 }
 
 const HeaderSection = ({ hackthonDetails }: HeaderSectionProps) => {

@@ -9,7 +9,6 @@ interface CounterProps {
 
 const Counter = ({ startDate, expiryDate }: CounterProps) => {
   const [duration, setDuration] = useState<any>();
-  //   const currentDate = moment();
   const isBetween = moment()?.isBetween(startDate, expiryDate);
   const endDate = moment(new Date(expiryDate));
 
@@ -18,14 +17,9 @@ const Counter = ({ startDate, expiryDate }: CounterProps) => {
       const currentDate = moment();
       setDuration(moment.duration(endDate.diff(currentDate)));
     };
-
-    // Initial calculation
     calculateDuration();
 
-    // Set interval to update duration every second
     const intervalId = setInterval(calculateDuration, 1000);
-
-    // Cleanup interval on unmount
     return () => {
       clearInterval(intervalId);
     };

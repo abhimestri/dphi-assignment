@@ -53,7 +53,7 @@ const Main = () => {
       title: "Data Sprint 70 - Airline passenger satisfcation",
       expiryDate: moment().add(10, "days").add(1, "hours")?.add(21, "minutes"),
       startDate: moment().add(4, "days").add(4, "hours")?.add(51, "minutes"),
-      status: "active",
+      status: "upcoming",
       description:
         'Butterflies are the adult flying stage of certain insects belonging to an order or group called Lepidoptera. The word "Lepidoptera" means "scaly wings" in Greek. This name perfectly suits the insects in this group because their wings are covered with thousands of tiny scales overlapping in rows.',
       level: "hard",
@@ -81,7 +81,7 @@ const Main = () => {
       title: "Travel insurance claim prediction",
       expiryDate: moment().add(4, "days").add(10, "hours")?.add(30, "minutes"),
       startDate: moment().add(1, "days").add(12, "hours")?.add(23, "minutes"),
-      status: "past",
+      status: "upcoming",
       description:
         'Butterflies are the adult flying stage of certain insects belonging to an order or group called Lepidoptera. The word "Lepidoptera" means "scaly wings" in Greek. This name perfectly suits the insects in this group because their wings are covered with thousands of tiny scales overlapping in rows.',
       level: "easy",

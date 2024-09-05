@@ -1,16 +1,16 @@
 import { Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useContext, useEffect, useState } from "react";
-import { collection, addDoc, getDoc, doc } from "firebase/firestore";
-import { db } from "../config/firebase";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { defaultData } from "../Data";
 import { DefaultDataContext } from "../context";
 import { ReactComponent as ImageIcon } from "../assets/icons/bi_image-fill.svg";
 import { ReactComponent as RightIcon } from "../assets/icons/arrow-right.svg";
 import { ReactComponent as UploadIcon } from "../assets/icons/bxs_cloud-upload.svg";
 
 import moment from "moment";
+import { formFields } from "../utility";
+import FormField from "../components/Form";
+import { getStatus } from "../components/HackthonCard/HackthonCard";
 
 const CreateHackthon = () => {
   const navigate = useNavigate();
@@ -23,7 +23,6 @@ const CreateHackthon = () => {
 
   const handleChange = (data: any) => {
     const { name, value } = data?.target;
-    console.log({ data });
     if (name === "imageUrl") {
       const file = data.target.files[0];
       const reader = new FileReader();
@@ -48,16 +47,28 @@ const CreateHackthon = () => {
       if (isEditPage) {
         const updatedHackthonList = hackthonList?.map((data: any) => {
           if (data?.id === params?.id) {
-            return { ...formData };
+            return {
+              ...formData,
+              status: getStatus(formData?.startDate, formData?.expiryDate)
+                ?.title,
+            };
           } else {
-            return data;
+            return {
+              ...data,
+              status: getStatus(formData?.startDate, formData?.expiryDate)
+                ?.title,
+            };
           }
         });
         setHackthonList([...updatedHackthonList]);
       } else {
         setHackthonList([
           ...hackthonList,
-          { ...formData, id: `${hackthonList?.length + 1}` },
+          {
+            ...formData,
+            id: `${hackthonList?.length + 1}`,
+            status: getStatus(formData?.startDate, formData?.expiryDate)?.title,
+          },
         ]);
       }
       navigate("/");
@@ -69,12 +80,9 @@ const CreateHackthon = () => {
       const editData = hackthonList?.filter(
         (data: any) => data?.id === params?.id
       )[0];
-      console.log({ editData });
       setFormData({ ...editData });
     }
   }, [params?.id, hackthonList]);
-
-  console.log({ formData });
 
   return (
     <div>
@@ -90,81 +98,16 @@ const CreateHackthon = () => {
           noValidate
           validated={validated}
         >
-          <div className="mb-4">
-            <label className="mb-3">Challenge Name</label>
-            <Form.Control
-              required
-              name="title"
-              style={{
-                width: "28%",
-              }}
-              type="text"
-              value={formData?.title}
-              onChange={handleChange}
-            />
-            <Form.Control.Feedback type="invalid">
-              Please choose a username.
-            </Form.Control.Feedback>
-          </div>
-          <div className="mb-4">
-            <label className="mb-3">Start Date</label>
-            <Form.Control
-              type="date"
-              name="startDate"
-              placeholder="Add start date"
-              style={{
-                width: "28%",
-              }}
-              onChange={handleChange}
-              value={
-                formData?.startDate
-                  ? moment(formData?.startDate).format("YYYY-MM-DD")
-                  : ""
-              }
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please choose a Start date.
-            </Form.Control.Feedback>
-          </div>
-          <div className="mb-4">
-            <label className="mb-3">End Date</label>
-            <Form.Control
-              type="date"
-              name="expiryDate"
-              placeholder="Add start date"
-              style={{
-                width: "28%",
-              }}
-              required
-              onChange={handleChange}
-              value={
-                formData?.expiryDate
-                  ? moment(formData?.expiryDate).format("YYYY-MM-DD")
-                  : ""
-              }
-            />
-            <Form.Control.Feedback type="invalid">
-              Please choose a Expiry date.
-            </Form.Control.Feedback>
-          </div>
-          <div className="mb-4">
-            <label className="mb-3">Description</label>
-            <Form.Control
-              as="textarea"
-              placeholder="Add start date"
-              name="description"
-              style={{
-                width: "48%",
-              }}
-              rows={10}
-              onChange={handleChange}
-              value={formData?.description}
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please choose a Description.
-            </Form.Control.Feedback>
+          <div className="w-full sm:w-[300px]">
+            {formFields?.map((field) => {
+              return (
+                <FormField
+                  formData={formData}
+                  formFieldData={field}
+                  onChange={handleChange}
+                />
+              );
+            })}
           </div>
           <div className="mb-4">
             <p className="mb-4">Image</p>
@@ -185,27 +128,30 @@ const CreateHackthon = () => {
                   </label>
                 </div>
               ) : (
-                <label
-                  className="px-20 py-[14px] cursor-pointer"
-                  htmlFor="file-upload"
-                >
-                  <div className="flex justify-center items-center gap-x-2">
-                    <p>Upload</p>
-                    <UploadIcon />
-                  </div>
-                </label>
+                <>
+                  <label
+                    className="px-20 py-[14px] cursor-pointer"
+                    htmlFor="file-upload"
+                  >
+                    <div className="flex justify-center items-center gap-x-2">
+                      <p>Upload</p>
+                      <UploadIcon />
+                    </div>
+                  </label>
+                  <Form.Control
+                    id="file-upload"
+                    type="file"
+                    hidden
+                    name="imageUrl"
+                    onChange={handleChange}
+                    required
+                    accept="image/png, image/gif, image/jpeg"
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    Please choose a image.
+                  </Form.Control.Feedback>
+                </>
               )}
-              <Form.Control
-                id="file-upload"
-                type="file"
-                hidden
-                name="imageUrl"
-                onChange={handleChange}
-                required
-              />
-              <Form.Control.Feedback type="invalid">
-                Please choose a image.
-              </Form.Control.Feedback>
             </div>
           </div>
           <div className="mb-4 mt-6">
