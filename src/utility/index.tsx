@@ -15,9 +15,7 @@ export const getFilteredList = (
   if (showAll || appliedFilters?.length === 0) {
     filteredList = [...filteredList];
   } else {
-    console.log({ appliedFilters });
     if (sortApplied[0] === "newest") {
-      console.log("p");
       filteredList =
         filteredList?.length === 0
           ? challengeList?.sort((a: any, b: any) => {
@@ -61,10 +59,10 @@ export const getFilteredList = (
   ) {
     filteredList =
       sortApplied[0] === "newest"
-        ? filteredList?.sort((a: any, b: any) => {
+        ? challengeList?.sort((a: any, b: any) => {
             return moment(a.startDate).unix() - moment(b.startDate).unix();
           })
-        : filteredList?.sort((a: any, b: any) => {
+        : challengeList?.sort((a: any, b: any) => {
             return moment(b.startDate).unix() - moment(a.startDate).unix();
           });
   }
